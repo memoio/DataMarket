@@ -1,6 +1,6 @@
 # How FileProof Ensures the Availability of User Data
 
-[FileProof Design Document](http://132.232.87.203:8088/did/did-solidity/blob/master/DESIGN(FileProof).md)
+[FileProof Design Document](https://github.com/memoio/meeda-docs/blob/main/docs/developers/Contract.md)
 
 ---
 
@@ -26,7 +26,7 @@ So, the primary and most important effect that file storage proof must achieve i
 
 ## 2. Why must nodes store the user's data completely?
 
-Through the aforementioned [FileProof Design Document](http://132.232.87.203:8088/did/did-solidity/blob/master/DESIGN(FileProof).md), it is known that the proof `proof` submitted by users regularly depends on the randomly generated number `rnd` each time. The user's data needs to be divided into 32-byte `atoms` as the coefficients of the polynomial to calculate the value of the polynomial at `rnd`, which is the `y` value. If the node does not save the user's complete data, it cannot obtain the polynomial coefficients and, therefore, cannot calculate the correct `y` value, and thus cannot provide the correct proof `proof`. In the optimistic verification phase, the node will not pass.
+Through the aforementioned [FileProof Design Document](https://github.com/memoio/meeda-docs/blob/main/docs/developers/Contract.md), it is known that the proof `proof` submitted by users regularly depends on the randomly generated number `rnd` each time. The user's data needs to be divided into 32-byte `atoms` as the coefficients of the polynomial to calculate the value of the polynomial at `rnd`, which is the `y` value. If the node does not save the user's complete data, it cannot obtain the polynomial coefficients and, therefore, cannot calculate the correct `y` value, and thus cannot provide the correct proof `proof`. In the optimistic verification phase, the node will not pass.
 
 Of course, this is under optimistic conditions where the node cannot pass the verification. If the node is fraudulent and provides an incorrect aggregate commitment value `Cn`, making the incorrect proof `proof` pass verification (`proof` and `Cn` match successfully). In this case, fraud proof is needed. Any other node that finds the aggregate commitment value `Cn` to be problematic can challenge it on the chain. Since the user's data's true commitment value `Commitment` is saved on the chain, it can accurately determine that the node's submitted aggregate commitment value `Cn` is incorrect, and thus the node has not passed the storage proof.
 
@@ -34,7 +34,7 @@ In summary, nodes cannot pass the storage proof by only saving the user data's `
 
 ## 3. What are the advantages of kzg polynomial in file storage proof?
 
-Similarly, through the [FileProof Design Document](http://132.232.87.203:8088/did/did-solidity/blob/master/DESIGN(FileProof).md), it is known that kzg polynomial commitment ensures that during the storage proof process, only the storage node knows the user's data (of course, it is data that has been sliced and encrypted). The verifier and challenger do not need to know the user's data. This design concept fully protects the privacy of the user's data.
+Similarly, through the [FileProof Design Document](https://github.com/memoio/meeda-docs/blob/main/docs/developers/Contract.md), it is known that kzg polynomial commitment ensures that during the storage proof process, only the storage node knows the user's data (of course, it is data that has been sliced and encrypted). The verifier and challenger do not need to know the user's data. This design concept fully protects the privacy of the user's data.
 
 kzg polynomial commitment also supports batch proof. Whether it is verifying the storage proof of one file or tens of thousands of files, the node only needs to submit a fixed size storage proof `proof` once, and the storage proof data volume is small, only two G1 points. In the bls12_381 curve, a G1 point occupies 96 bytes (x and y each occupy 48 bytes), so the storage proof data volume is only 192 bytes. This greatly reduces the cost of storage proof and has good scalability.
 

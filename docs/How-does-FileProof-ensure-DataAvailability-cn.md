@@ -1,6 +1,6 @@
 # FileProof如何保障用户数据的可用性
 
-[FileProof设计文档](http://132.232.87.203:8088/did/did-solidity/blob/master/DESIGN(FileProof).md)
+[FileProof设计文档](https://github.com/memoio/meeda-docs/blob/main/docs/developers/Contract.md)
 
 &nbsp;
 
@@ -36,7 +36,7 @@
 
 ## 2. 节点为什么必须完整地存储用户数据？
 
-通过上述[FileProof设计文档](http://132.232.87.203:8088/did/did-solidity/blob/master/DESIGN(FileProof).md)能够知道，用户定期提交的证明`proof`依赖于每次生成的随机数`rnd`，需要将用户数据分割为32字节的`atoms`作为多项式的系数，计算多项式在`rnd`处的值，也就是`y`值。如果节点没有保存用户的完整数据，那么就无法得到多项式系数，更不可能计算出正确的`y`值，那么就无法提供正确的证明`proof`，在乐观验证阶段，节点就无法通过。
+通过上述[FileProof设计文档](https://github.com/memoio/meeda-docs/blob/main/docs/developers/Contract.md)能够知道，用户定期提交的证明`proof`依赖于每次生成的随机数`rnd`，需要将用户数据分割为32字节的`atoms`作为多项式的系数，计算多项式在`rnd`处的值，也就是`y`值。如果节点没有保存用户的完整数据，那么就无法得到多项式系数，更不可能计算出正确的`y`值，那么就无法提供正确的证明`proof`，在乐观验证阶段，节点就无法通过。
 
 &nbsp;
 
@@ -48,7 +48,7 @@
 
 ## 3.  kzg多项式在文件存储证明中有什么优势？
 
-同样，通过[FileProof设计文档](http://132.232.87.203:8088/did/did-solidity/blob/master/DESIGN(FileProof).md)能够知道，kzg多项式承诺保证在存储证明的过程中，只有存储节点知道用户数据（当然，是经过分片和加密的数据），验证方和挑战方不需要知道用户数据，这样的设计思想完全保障了用户数据的私密性。
+同样，通过[FileProof设计文档](https://github.com/memoio/meeda-docs/blob/main/docs/developers/Contract.md)能够知道，kzg多项式承诺保证在存储证明的过程中，只有存储节点知道用户数据（当然，是经过分片和加密的数据），验证方和挑战方不需要知道用户数据，这样的设计思想完全保障了用户数据的私密性。
 
 &nbsp;
 
